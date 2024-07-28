@@ -1,7 +1,0 @@
-.env
-__pycache__
-.vscode
-.env.app
-master_password_config.json
-pwdmgr.db
-theme.jpg
