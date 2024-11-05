@@ -11,7 +11,6 @@
 
 ##### Snapshots
 
-
 ![alt text](/Users/sriya/sriya.agarwal/my_password_manager/home.png)
 
 
