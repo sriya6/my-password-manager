@@ -11,7 +11,7 @@
 
 ##### Snapshots
 
-![alt text](/Users/sriya/sriya.agarwal/my_password_manager/home.png)
+![alt text](images/home.png)
 
 
-![alt text](/Users/sriya/sriya.agarwal/my_password_manager/add_new_credential.png)
+![alt text](images/add_new_credential.png)
