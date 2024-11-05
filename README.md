@@ -11,6 +11,8 @@
 
 ##### Snapshots
 
-https://file+.vscode-resource.vscode-cdn.net/Users/sriya/sriya.agarwal/my_password_manager/home.png?version%3D1730796717391
 
-https://file+.vscode-resource.vscode-cdn.net/Users/sriya/sriya.agarwal/my_password_manager/add_new_credential.png?version%3D1730796748511
+![alt text](https://file%2B.vscode-resource.vscode-cdn.net/Users/sriya/sriya.agarwal/my_password_manager/home.png?version%3D1730796851432)
+
+
+![alt text](https://file%2B.vscode-resource.vscode-cdn.net/Users/sriya/sriya.agarwal/my_password_manager/add_new_credential.png?version%3D1730796875405)
