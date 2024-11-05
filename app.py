@@ -48,7 +48,7 @@ c.execute("""
 conn.commit()
 
 # Load the custom .env.app file 
-load_dotenv(dotenv_path='.env')
+load_dotenv(dotenv_path='.env.app')
 key = os.getenv("FERNET_KEY")
 # Initialize the Cipher
 fernet = Fernet(key)
@@ -160,29 +160,38 @@ def main():
     match radio_option:
         case "Home":
             st.subheader("Find Credential 🔎")
-            master_password = st.text_input("Enter the Master Password to access your credentials", type="password")
-            if st.button("Submit"):
-                if verify_master_password(master_password, derived_key, salt):
-                    st.success("Welcome User!")
-                    if db_size > 0:
-                        # Populate application names
-                        option = st.selectbox('Select Application 📱', app_names)
-
-                        if st.button('Fetch credentials 👇', use_container_width=True):
-
-                            # Function to get credentials by taking application name selected
-                            cred = get_cred_by_app(option)
-
-                            stored_password = cred[2]
-                            decrypted_password = decrypt_password(stored_password)
-
-                            with st.container():
-                                st.text(f"Username 👤")
-                                st.code(f"{cred[1]}", language="python")
-                                st.text_input('Password 🔑', value=decrypted_password, type="password")
+            # Check if user is already authenticated in this session
+            if "authenticated" not in st.session_state:
+                st.session_state["authenticated"] = False
+            # If not authenticated, master password prompt is displayed
+            if not st.session_state["authenticated"]:
+                master_password = st.text_input("Enter the Master Password to access your credentials", type="password")
+                if st.button("Submit"):
+                    if verify_master_password(master_password, derived_key, salt):
+                        st.session_state["authenticated"] = True
+                        st.success("Welcome User!")
                     else:
-                        # Display error message when db is empty
-                        st.info('Database is empty.', icon="ℹ️")
+                        st.error("Sorry! Invalid master password")
+            if st.session_state["authenticated"]:
+                if db_size > 0:
+                    # Populate application names
+                    option = st.selectbox('Select Application 📱', app_names)
+
+                    if st.button('Fetch credentials 👇', use_container_width=True):
+
+                        # Function to get credentials by taking application name selected
+                        cred = get_cred_by_app(option)
+
+                        stored_password = cred[2]
+                        decrypted_password = decrypt_password(stored_password)
+
+                        with st.container():
+                            st.text(f"Username 👤")
+                            st.code(f"{cred[1]}", language="python")
+                            st.text_input('Password 🔑', value=decrypted_password, type="password")
+                else:
+                    # Display error message when db is empty
+                    st.info('Database is empty.', icon="ℹ️")
 
         case "Add Account":
             st.subheader("Add New Credential: ")
