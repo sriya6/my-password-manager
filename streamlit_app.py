@@ -48,11 +48,12 @@ c.execute("""
 conn.commit()
 
 # Load the custom .env.app file 
-if not st.secrets:
+try:
+    key = st.secrets["FERNET_KEY_TEST"]
+except (FileNotFoundError, KeyError):
     load_dotenv(dotenv_path='.env.app')
     key = os.getenv("FERNET_KEY")
-else:
-    key = st.secrets["FERNET_KEY_TEST"]
+    
 # Initialize the Cipher
 fernet = Fernet(key)
 
